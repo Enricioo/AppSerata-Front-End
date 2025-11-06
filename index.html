@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casino Royal Night</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Casino Royal Night</title>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body class="bg-gray-900 min-h-screen flex items-center justify-center 
+             relative overflow-hidden bg-gradient-to-br from-black to-gray-900">
+
+        <div id="star-field" class="absolute inset-0 z-0">
+        </div>
+
+        <div id="presentation-content" 
+         class="text-center p-10 bg-white/10 backdrop-blur-md rounded-xl shadow-2xl 
+                max-w-lg mx-auto transform scale-95 relative z-10 border border-indigo-500/50">
+        
+            <h1 class="text-6xl font-extrabold text-indigo-400 mb-4 opacity-0" data-anime="title">
+                <span class="block">Benvenuto nel</span>
+                <span class="block text-4xl text-gray-200 mt-2">Simulatore Stellare</span>
+            </h1>
+        
+            <p class="text-xl text-gray-400 mb-8 opacity-0" data-anime="subtitle">
+                Entra per attivare il Crazy Time intergalattico!
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+            
+                <a href="crazytime.html" 
+                id="start-crazytime"
+                class="flex-1 inline-block bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-6 rounded-full 
+                        shadow-xl transition duration-300 transform hover:scale-105 opacity-0"
+                data-anime="button">
+                    Crazy Time 🎡
+                </a>
+
+                <a href="bingo.html" 
+                id="start-bingo"
+                class="flex-1 inline-block bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-6 rounded-full 
+                        shadow-xl transition duration-300 transform hover:scale-105 opacity-0"
+                data-anime="button">
+                    Bingo 🔢
+                </a>
+            </div>
+        </div>
+
+        <script src="js/index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    </body>
 </html>
