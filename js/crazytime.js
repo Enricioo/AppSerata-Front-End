@@ -131,20 +131,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 const chosenMultiplier = possibleMultipliers[Math.floor(Math.random() * possibleMultipliers.length)];
                 const bettableSegments = ['1', '2', '5', '10', 'CoinFlip', 'CashHunt', 'Pachinko', 'CrazyTime'];
                 const chosenTarget = bettableSegments[Math.floor(Math.random() * bettableSegments.length)];
+                const finalMessage = `${chosenTarget} X${chosenMultiplier}`;
+                topslotDisplay.textContent = 'Spinning...';
                 // 2. Simula l'animazione Top Slot con un timeout (es. 2 secondi)
-                setTimeout(() => {
-                    // 3. Simula la "sezione" scelta dal Top Slot (dovrebbe essere un risultato della ruota, es. '2' o 'Pachinko')
-                    // Qui usiamo 'CrazyTime' come placeholder per la sezione Top Slot 
-                    
-                    topslotTarget = chosenTarget;
-                    topslotMultiplier = chosenMultiplier;
 
-                    const topslotResult = `${chosenTarget} X${chosenMultiplier}`;
-                    topslotDisplay.textContent = `Top Slot: ${topslotResult}`;
+                anime({
+                    targets: topslotDisplay,
+                    // Simula un effetto di scuotimento rapido
+                    translateX: [
+                        { value: 10, duration: 50, easing: 'easeInOutSine' },
+                        { value: -10, duration: 50, easing: 'easeInOutSine' },
+                        { value: 0, duration: 50, easing: 'easeInOutSine' }
+                    ],
+                    // Simula un rapido lampeggio di testo
+                    opacity: [0.5, 1],
                     
-                    // Risolvi la Promise passando il moltiplicatore Top Slot
-                    resolve(true);
-                }, 2000);
+                    duration: 150,
+                    loop: 10, // Ripeti il flicker 10 volte (totale 1.5s)
+                    easing: 'linear',
+
+                    complete: () => {
+                        // 2. Quando il flicker è finito, mostra il risultato finale
+                        
+                        // Assegna i valori globali
+                        topslotTarget = chosenTarget;
+                        topslotMultiplier = chosenMultiplier;
+                        
+                        topslotDisplay.textContent = finalMessage;
+                        anime({
+                            targets: topslotDisplay,
+                            scale: [3, 1.1, 1],
+                            duration: 1500
+                        });
+                        resolve(true);
+                    }
+                });
             });
         }
 
