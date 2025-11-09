@@ -15,8 +15,8 @@
 .carousel-track {
     display: flex;
     /* Raddoppiamo il contenuto per creare un loop infinito senza interruzioni */
-    width: calc(800px * 10 * 2); /* Larghezza Card (300px) * Numero Card (10) * 2 */
-    animation: scroll-left 60s linear infinite;
+    width: 20000px;
+    animation: scroll-left 70s linear infinite;
     will-change: transform; /* Ottimizzazione performance */
 }
 
@@ -26,5 +26,13 @@
 
 @keyframes scroll-left {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-9568px); /* Scorre la metà */ }
+    100% { transform: translateX(-17600px); }
+}
+
+.user-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Lascia più spazio per il nome ora che la card è più larga */
+    max-width: 450px; 
 }

@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/partecipanti/Sara.jpg',
                 'assets/partecipanti/Gabriele.jpg',
                 'assets/partecipanti/Claudio.jpg',
-                'assets/partecipanti/Nicolo.jpg',
+                'assets/partecipanti/Nicolò.jpg',
                 'assets/partecipanti/Andrea.jpg',
                 'assets/partecipanti/Miriam.jpg',
                 'assets/partecipanti/Giammarco.jpg',
@@ -160,23 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 'assets/partecipanti/Nicola.jpg',
                 'assets/partecipanti/Samuele.jpg',
                 'assets/partecipanti/Francesco.jpg',
-                'assets/partecipanti/Giosue.jpg',
+                'assets/partecipanti/Giosuè.jpg',
                 'assets/partecipanti/Noemi.jpg'
         ];
 
         if (!cardTemplate) {
         console.error("Card template non trovato!");
         return;
-        }
-
-        let shuffledNames = [...names];
-        let shuffledImagePaths = [...imagePaths];
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
         }
             
         // Genera le card per l'intero track (doppio per loop)
@@ -185,14 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const card = cardTemplate.content.cloneNode(true);
                 
-
-                let indices = Array.from({length: numCards}, (_, i) => i);
-                shuffleArray(indices);
                 // Setta l'immagine avatar casuale (indice da 1 a 20)
-                card.querySelector('#avatar-img').src = shuffledImagePaths[uniqueIndex];
+                card.querySelector('#avatar-img').src = imagePaths[uniqueIndex];
                 
                 // Setta nome e saldo
-                card.querySelector('#user-name').textContent = shuffledNames[uniqueIndex];
+                card.querySelector('#user-name').textContent = names[uniqueIndex];
                 
                 const randomBalance = (Math.random() * 5000 + 500).toFixed(0);
                 card.querySelector('p:nth-child(2)').textContent = `Live • Saldo: €${randomBalance}`;
