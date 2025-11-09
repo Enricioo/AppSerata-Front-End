@@ -6,3 +6,25 @@
     border-radius: 50%;
     opacity: 0; 
 }
+
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    /* Raddoppiamo il contenuto per creare un loop infinito senza interruzioni */
+    width: calc(800px * 10 * 2); /* Larghezza Card (300px) * Numero Card (10) * 2 */
+    animation: scroll-left 60s linear infinite;
+    will-change: transform; /* Ottimizzazione performance */
+}
+
+.carousel-track:hover {
+    animation-play-state: paused; /* Metti in pausa al passaggio del mouse */
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-9568px); /* Scorre la metà */ }
+}

@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const gamesBlock = document.getElementById('games-block');
+    const mainPlayButton = document.getElementById('main-play-button');
+    const starField = document.getElementById('star-field');
+    const numStars = 150;
+    const carouselTrack = document.querySelector('.carousel-track');
+    const cardTemplate = document.getElementById('card-template');
+    const numCards = 23;
+    const totalCards = numCards * 2;
+
     // Animazione del Titolo (Apparizione dal basso)
     anime({
         targets: '[data-anime="title"]',
@@ -16,11 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 800,
         easing: 'easeOutQuad'
     });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const starField = document.getElementById('star-field');
-    const numStars = 150; // Numero di "stelle"
 
     // --- Generazione delle Stelle ---
     for (let i = 0; i < numStars; i++) {
@@ -76,4 +81,128 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 800,
         easing: 'easeOutQuad'
     });
+
+    
+    anime({
+        targets: mainPlayButton,
+        opacity: [0, 1],
+        delay: 800,
+        duration: 800,
+        easing: 'easeOutQuad'
+    });
+
+    mainPlayButton.addEventListener('click', () => {
+                
+        if (gamesBlock.classList.contains('h-0')) {
+            
+            gamesBlock.classList.remove('h-0', 'overflow-hidden');
+            const height = gamesBlock.scrollHeight; 
+            gamesBlock.style.height = `${height}px`;
+
+            mainPlayButton.style.display = 'none';
+
+        } else {
+            gamesBlock.style.height = '0px';
+            gamesBlock.addEventListener('transitionend', () => {
+                gamesBlock.classList.add('h-0', 'overflow-hidden');
+                mainPlayButton.style.display = 'inline-block';
+            }, { once: true });
+        }
+    });
+
+    function populateCarousel() {
+        // Dati base dei giocatori (da cui estrarre casualmente)
+        const names = [
+        "Enrico M.",   // Giocatore 1
+        "Sharon S.",      // Giocatore 2
+        "Daniele P.",      // Giocatore 3
+        "Giovanni S.",     // Giocatore 4
+        "Giuseppe M.",      // Giocatore 5
+        "Sara V.",     // Giocatore 6
+        "Gabriele P.",     // Giocatore 7
+        "Claudio C.",  // Giocatore 8
+        "Nicolò F.",    // Giocatore 9
+        "Andrea B.",     // Giocatore 10
+        "Miriam F.",   // Giocatore 11
+        "Giammarco P.",      // Giocatore 12
+        "Gabriella M.",      // Giocatore 13
+        "Debora S.",     // Giocatore 14
+        "Federico C.",      // Giocatore 15
+        "Stefano C.C.",     // Giocatore 16
+        "Alessandro M.",     // Giocatore 17
+        "Gaetano R.",  // Giocatore 18
+        "Nicola R.",    // Giocatore 19
+        "Samuele L.",     // Giocatore 20
+        "Francesco I.",  // Giocatore 21
+        "Giosuè C.C.",   // Giocatore 22
+        "Noemi S.",   // Giocatore 23
+    ];
+
+        const imagePaths = [
+                'assets/partecipanti/Enrico.jpg',
+                'assets/partecipanti/Sharon.jpg',
+                'assets/partecipanti/Daniele.jpg',
+                'assets/partecipanti/Giovanni.jpg',
+                'assets/partecipanti/Giuseppe.jpg',
+                'assets/partecipanti/Sara.jpg',
+                'assets/partecipanti/Gabriele.jpg',
+                'assets/partecipanti/Claudio.jpg',
+                'assets/partecipanti/Nicolo.jpg',
+                'assets/partecipanti/Andrea.jpg',
+                'assets/partecipanti/Miriam.jpg',
+                'assets/partecipanti/Giammarco.jpg',
+                'assets/partecipanti/Gabriella.jpg',
+                'assets/partecipanti/Debora.jpg',
+                'assets/partecipanti/Federico.jpg',
+                'assets/partecipanti/Stefano.jpg',
+                'assets/partecipanti/Alessandro.jpg',
+                'assets/partecipanti/Gaetano.jpg',
+                'assets/partecipanti/Nicola.jpg',
+                'assets/partecipanti/Samuele.jpg',
+                'assets/partecipanti/Francesco.jpg',
+                'assets/partecipanti/Giosue.jpg',
+                'assets/partecipanti/Noemi.jpg'
+        ];
+
+        if (!cardTemplate) {
+        console.error("Card template non trovato!");
+        return;
+        }
+
+        let shuffledNames = [...names];
+        let shuffledImagePaths = [...imagePaths];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+            
+        // Genera le card per l'intero track (doppio per loop)
+        for (let i = 0; i < totalCards; i++) {
+                const uniqueIndex = i % numCards; // Per ripetere i dati dopo 10
+                
+                const card = cardTemplate.content.cloneNode(true);
+                
+
+                let indices = Array.from({length: numCards}, (_, i) => i);
+                shuffleArray(indices);
+                // Setta l'immagine avatar casuale (indice da 1 a 20)
+                card.querySelector('#avatar-img').src = shuffledImagePaths[uniqueIndex];
+                
+                // Setta nome e saldo
+                card.querySelector('#user-name').textContent = shuffledNames[uniqueIndex];
+                
+                const randomBalance = (Math.random() * 5000 + 500).toFixed(0);
+                card.querySelector('p:nth-child(2)').textContent = `Live • Saldo: €${randomBalance}`;
+                
+                carouselTrack.appendChild(card);
+            }
+    }
+
+    populateCarousel();
+
 });
+
+
